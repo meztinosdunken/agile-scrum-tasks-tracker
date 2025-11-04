@@ -13,7 +13,10 @@ app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
 
 app.get('/', (req, res) => {
   res.send('API is running');
